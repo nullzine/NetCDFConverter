@@ -13,16 +13,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -246,7 +242,7 @@ public class NetCDFConverterGUI extends javax.swing.JFrame {
     
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         int index = jComboBox1.getSelectedIndex();
-        System.out.println(index);
+        //System.out.println(index);
         if(index!=-1){
             jTextArea1.setText(mncdf.getHeaderData(index));
             jLabel2.setIcon(new ImageIcon(mncdf.getBufferedImage(index,jCheckBox1.isSelected())));

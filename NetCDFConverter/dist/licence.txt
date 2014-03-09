@@ -1,0 +1,7 @@
+本ソフトウエアはNetCDFライブラリを使用しています。
+NetCDFライセンス条項に則り、ここにNetCDFライブラリのライセンス表記を行います。
+
+NetCDFAll-4.3
+Copyright 1993-2013 University Corporation for Atmospheric Research/Unidata
+
+本ソフトウエアは原則としてMITLicenceに従うものとします。

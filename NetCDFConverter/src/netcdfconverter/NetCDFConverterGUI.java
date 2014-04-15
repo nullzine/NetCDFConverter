@@ -225,14 +225,17 @@ public class NetCDFConverterGUI extends javax.swing.JFrame {
     private ManipulatingNetCDF mncdf;
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            mncdf = new ManipulatingNetCDF(uiSelectFile("NetCDF file", netcdfFileFilter, JFileChooser.OPEN_DIALOG).getPath());
-        } catch (IOException ex) {
-            Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+        File file = uiSelectFile("NetCDF file", netcdfFileFilter, JFileChooser.OPEN_DIALOG);
+        if (file != null) {
+            try {
+                mncdf = new ManipulatingNetCDF(file.getPath());
+            } catch (IOException ex) {
+                Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            enableComponents();
+            setComboBox();
+            setData();
         }
-        enableComponents();
-        setComboBox();
-        setData();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void setData() {
@@ -261,41 +264,52 @@ public class NetCDFConverterGUI extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String str = jTextArea1.getText();
         File file = uiSaveFile("Saving variable LOG", netcdfFileFilter, JFileChooser.OPEN_DIALOG);
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-        } catch (IOException ex) {
-            Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+        if (file != null) {
+            PrintWriter pw = null;
+            try {
+                pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+            } catch (IOException ex) {
+                Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (pw != null) {
+                pw.println(str);
+                pw.close();
+            }
         }
-        pw.println(str);
-        pw.close();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            mncdf.savingImage(uiSaveFile("image file", imageFileFilter, JFileChooser.OPEN_DIALOG).getPath(),jComboBox1.getSelectedIndex(),jCheckBox1.isSelected());
-        } catch (IOException ex) {
-            Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+        File file = uiSaveFile("image file", imageFileFilter, JFileChooser.OPEN_DIALOG);
+        if (file != null) {
+            try {
+                mncdf.savingImage(file.getPath(), jComboBox1.getSelectedIndex(), jCheckBox1.isSelected());
+            } catch (IOException ex) {
+                Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         File file = uiSaveFile("Saving CSV", csvFileFilter, JFileChooser.OPEN_DIALOG);
         PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-        } catch (IOException ex) {
-            Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(int i=0;i<mncdf.getDataSet(jComboBox1.getSelectedIndex()).length;i++){
-            for(int j=0;j<mncdf.getDataSet(jComboBox1.getSelectedIndex())[i].length;j++){
-                if(j==mncdf.getDataSet(jComboBox1.getSelectedIndex())[i].length-1){
-                    pw.println(mncdf.getDataSet(jComboBox1.getSelectedIndex())[i][j]);
+        if (file != null) {
+            try {
+                pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+            } catch (IOException ex) {
+                Logger.getLogger(NetCDFConverterGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (pw != null) {
+                for (int i = 0; i < mncdf.getDataSet(jComboBox1.getSelectedIndex()).length; i++) {
+                    for (int j = 0; j < mncdf.getDataSet(jComboBox1.getSelectedIndex())[i].length; j++) {
+                        if (j == mncdf.getDataSet(jComboBox1.getSelectedIndex())[i].length - 1) {
+                            pw.println(mncdf.getDataSet(jComboBox1.getSelectedIndex())[i][j]);
+                        }
+                        pw.print(mncdf.getDataSet(jComboBox1.getSelectedIndex())[i][j] + ",");
+                    }
                 }
-                pw.print(mncdf.getDataSet(jComboBox1.getSelectedIndex())[i][j]+",");
+                pw.close();
             }
         }
-        pw.close();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

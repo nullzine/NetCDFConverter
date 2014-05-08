@@ -18,6 +18,7 @@ public class NCDFArrayStracture {
     private int r,c;
     private int row;
     private int column;
+    private boolean isFull;
     
     public NCDFArrayStracture(int row,int column){
         this.row=row;
@@ -25,6 +26,7 @@ public class NCDFArrayStracture {
         dataSet = new float[row][column];
         r=0;
         c=0;
+        isFull=false;
     }
     
     public void add(float num){
@@ -32,6 +34,9 @@ public class NCDFArrayStracture {
         c++;
         if(c==column){
             r++;
+            if(r==row){
+                isFull=true;
+            }
             c=0;
         }
     }
@@ -78,6 +83,10 @@ public class NCDFArrayStracture {
     
     private int rgb(int r,int g,int b){
         return 0xff000000 | r <<16 | g <<8 | b;
+    }
+    
+    public boolean isArrayFull(){
+        return isFull;
     }
     
 }

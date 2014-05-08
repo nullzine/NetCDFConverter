@@ -17,10 +17,12 @@ import ucar.ma2.Array;
 public class CDFElement {
     
     private NCDFArrayStracture ncdfas;
+    private NCDF3DArrayStracture ncdf3das;
     private Variable headerData;
     
     public CDFElement(Variable headerData){
         this.headerData=headerData;
+        ncdf3das = null;
         ncdfas = null;
     }
     
@@ -28,10 +30,18 @@ public class CDFElement {
         if (array.getShape().length == 2) {
             ncdfas = new NCDFArrayStracture(array.getShape()[0], array.getShape()[1]);
         }
-        while (array.hasNext()) {
-            float tmp = array.nextFloat();
-            if (ncdfas != null) {
+        if (array.getShape().length == 3){
+            ncdf3das = new NCDF3DArrayStracture(array.getShape()[0], array.getShape()[1], array.getShape()[2]);
+        }
+        if (ncdfas != null) {
+            while (array.hasNext()) {
+                float tmp = array.nextFloat();
                 ncdfas.add(tmp);
+            }
+        }else if(ncdf3das != null){
+            while (array.hasNext()) {
+                float tmp = array.nextFloat();
+                ncdf3das.add(tmp);
             }
         }
         
@@ -65,8 +75,20 @@ public class CDFElement {
         }
     }
     
+    public float[][] getDataSet(int timeIndex){
+        if(ncdf3das!=null){
+            return ncdf3das.getDataSet(timeIndex);
+        }else{
+            return null;
+        }
+    }
+    
     public NCDFArrayStracture getArrayStracture(){
         return ncdfas;
+    }
+    
+    public NCDF3DArrayStracture get3DArrayStracture(){
+        return ncdf3das;
     }
     
     public Variable getVariable(){
@@ -79,6 +101,10 @@ public class CDFElement {
     
     public boolean hasArray(){
         return ncdfas!=null;
+    }
+    
+    public boolean has3DArray(){
+        return ncdf3das!=null;
     }
     
 }

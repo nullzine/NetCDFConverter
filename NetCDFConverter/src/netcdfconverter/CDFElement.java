@@ -16,38 +16,38 @@ import ucar.ma2.Array;
  */
 public class CDFElement {
     
-    private NCDEArrayStracture ncdeas;
+    private NCDFArrayStracture ncdfas;
     private Variable headerData;
     
     public CDFElement(Variable headerData){
         this.headerData=headerData;
-        ncdeas = null;
+        ncdfas = null;
     }
     
     public void setArray(Array array){
         if (array.getShape().length == 2) {
-            ncdeas = new NCDEArrayStracture(array.getShape()[0], array.getShape()[1]);
+            ncdfas = new NCDFArrayStracture(array.getShape()[0], array.getShape()[1]);
         }
         while (array.hasNext()) {
             float tmp = array.nextFloat();
-            if (ncdeas != null) {
-                ncdeas.add(tmp);
+            if (ncdfas != null) {
+                ncdfas.add(tmp);
             }
         }
         
     }
     
     public BufferedImage getBufferedImage(){
-        if(ncdeas!=null){
-            return ncdeas.getBufferedImage(false);
+        if(ncdfas!=null){
+            return ncdfas.getBufferedImage(false);
         }else{
             return null;
         }
     }
     
     public BufferedImage getBufferedImage(boolean isColor){
-        if(ncdeas!=null){
-            return ncdeas.getBufferedImage(isColor);
+        if(ncdfas!=null){
+            return ncdfas.getBufferedImage(isColor);
         }else{
             return null;
         }
@@ -58,15 +58,15 @@ public class CDFElement {
     }
     
     public float[][] getDataSet(){
-        if(ncdeas!=null){
-            return ncdeas.getDataSet();
+        if(ncdfas!=null){
+            return ncdfas.getDataSet();
         }else{
             return null;
         }
     }
     
-    public NCDEArrayStracture getArrayStracture(){
-        return ncdeas;
+    public NCDFArrayStracture getArrayStracture(){
+        return ncdfas;
     }
     
     public Variable getVariable(){
@@ -78,7 +78,7 @@ public class CDFElement {
     }
     
     public boolean hasArray(){
-        return ncdeas!=null;
+        return ncdfas!=null;
     }
     
 }

@@ -78,7 +78,7 @@ public class ManipulatingNetCDF {
         
     }
     
-    public boolean getHasArray(int index){
+    public boolean isHasArray(int index){
         return elementList[index].hasArray();
     }
     

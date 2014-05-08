@@ -249,7 +249,7 @@ public class NetCDFConverterGUI extends javax.swing.JFrame {
         if(index!=-1){
             jTextArea1.setText(mncdf.getHeaderData(index));
             jLabel2.setIcon(new ImageIcon(mncdf.getBufferedImage(index,jCheckBox1.isSelected())));
-            if(mncdf.getHasArray(index)){
+            if(mncdf.isHasArray(index)){
                 jButton3.setEnabled(true);
                 jButton4.setEnabled(true);
                 jButton5.setEnabled(true);
@@ -327,7 +327,7 @@ public class NetCDFConverterGUI extends javax.swing.JFrame {
         String[] strs = new String[mncdf.size()];
         for(int i=0;i<strs.length;i++){
             System.out.println(mncdf.getVariableType(i));
-            if(mncdf.getHasArray(i)){
+            if(mncdf.isHasArray(i)){
                 strs[i] = mncdf.getVariableType(i)+" (has array data)";
             }else{
                 strs[i] = mncdf.getVariableType(i);

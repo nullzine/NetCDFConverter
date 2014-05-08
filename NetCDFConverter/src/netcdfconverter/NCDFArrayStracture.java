@@ -12,14 +12,14 @@ import java.awt.image.BufferedImage;
  *
  * @author nullzine
  */
-public class NCDEArrayStracture {
+public class NCDFArrayStracture {
     
     private float[][] dataSet;
     private int r,c;
     private int row;
     private int column;
     
-    public NCDEArrayStracture(int row,int column){
+    public NCDFArrayStracture(int row,int column){
         this.row=row;
         this.column=column;
         dataSet = new float[row][column];

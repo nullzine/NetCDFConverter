@@ -63,6 +63,14 @@ public class CDFElement {
         }
     }
     
+    public BufferedImage getBufferedImage(boolean isColor,int index){
+        if(ncdf3das!=null){
+            return ncdf3das.getBufferedImage(isColor, index);
+        }else{
+            return null;
+        }
+    }
+    
     public String getHeaderData(){
         return headerData.toString();
     }
@@ -105,6 +113,14 @@ public class CDFElement {
     
     public boolean has3DArray(){
         return ncdf3das!=null;
+    }
+    
+    public int get3DArrayLength(){
+        if(ncdf3das!=null){
+            return ncdf3das.size();
+        }else{
+            return 0;
+        }
     }
     
 }

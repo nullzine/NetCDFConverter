@@ -57,6 +57,14 @@ public class ManipulatingNetCDF {
         }
     }
     
+    public BufferedImage getBufferedImage(int index,boolean isColor,int timeIndex){
+        if(elementList[index].getBufferedImage(isColor,timeIndex)!=null){
+            return elementList[index].getBufferedImage(isColor,timeIndex);
+        }else{
+            return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+        }
+    }
+    
     public String getHeaderData(int index){
         return elementList[index].getHeaderData();
     }
@@ -80,6 +88,14 @@ public class ManipulatingNetCDF {
     
     public boolean isHasArray(int index){
         return elementList[index].hasArray();
+    }
+    
+    public boolean isHas3DArray(int index){
+        return elementList[index].has3DArray();
+    }
+    
+    public int get3DArrayLength(int index){
+        return elementList[index].get3DArrayLength();
     }
     
 }
